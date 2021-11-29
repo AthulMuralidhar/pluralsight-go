@@ -11,7 +11,11 @@ import "fmt"
 // also works
 const (
 	test = iota
-	test3
+	test2
+)
+
+const (
+	test3 = iota
 )
 
 func constants() {
@@ -28,5 +32,5 @@ func constants() {
 	// // without the type conversion, the code errors
 	// fmt.Println(float32(typeconversion) + 4.4)
 
-	fmt.Println(test, test3)
+	fmt.Println(test, test2, test3)
 }
