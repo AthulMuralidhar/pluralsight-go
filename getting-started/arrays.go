@@ -26,13 +26,44 @@ func Arrays() {
 	// fmt.Println(arr)
 	// fmt.Println(slice)
 
-	slice := []int{2,5}
-	fmt.Println(slice)
+	// slice := []int{2,5}
+	// fmt.Println(slice)
 
-	slice = append(slice, 32,234,234,1231,5234)
-	fmt.Println(slice)
+	// slice = append(slice, 32,234,234,1231,5234)
+	// fmt.Println(slice)
 
 	// the "colon" like index slicing in python works the same in go
-	
+
+	// maps == dict
+	// m := map[string] string{"test": "asd"}
+	// fmt.Println(m) 
+	// fmt.Println(m["test"])
+
+	// delete(m, "test")
+	// fmt.Println(m) 
+
+	// structs - the only hetrogenrous collection in go
+
+	type example struct {
+		id int
+		firstname string
+		lastname string 
+	}
+
+	var e1 example
+	fmt.Println(e1)
+
+	e1.firstname = "asdad"
+	e1.lastname = "asdasda"
+	e1.id = 1
+
+	fmt.Println(e1)
+
+	e2 := example{id: 2,
+		lastname: "12dsasda", 
+		firstname: "asdasd",
+	}
+	fmt.Println(e2)
+
 
 }

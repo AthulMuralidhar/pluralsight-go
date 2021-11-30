@@ -2,6 +2,10 @@ package main
 
 func main()  {
 	// constants()
-	Arrays()
+	// Arrays()
+	WebService()
+	// Functions()
+
+
 }
 
