@@ -6,6 +6,7 @@ func main() {
 	// CreatingCLIApps()
 	// CMDLineApp()
 	// CMDLineFlags()
-	Logs()
+	// Logs()
+	Reflections()
 
 }
