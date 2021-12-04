@@ -1,0 +1,8 @@
+INFO:log-levels.go:32: this is testinf
+WARNING:log-levels.go:35: warning test
+ERROR:log-levels.go:38: error test
+FATAL:log-levels.go:41: fatal test
+INFO:log-levels.go:32: this is testinf
+WARNING:log-levels.go:35: warning test
+ERROR:log-levels.go:38: error test
+FATAL:log-levels.go:41: fatal test

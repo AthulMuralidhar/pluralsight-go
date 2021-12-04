@@ -1,9 +1,11 @@
 package main
 
 func main() {
-	FileMaker()
+	// FMT()
+	// FileMaker()
 	// CreatingCLIApps()
 	// CMDLineApp()
 	// CMDLineFlags()
+	Logs()
 
 }
