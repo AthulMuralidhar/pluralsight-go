@@ -18,8 +18,9 @@ func main() {
 	// var p org.Identify = org.Person{} 
 	// fmt.Println(p.ID())
 
-	p := org.NewPerson("121312","das")
+	p := org.NewPerson("121312","das", org.NewEUSecurity("12-12312-12312","Some country"))
 	fmt.Println(p.GetID())
+	fmt.Println(p.Country())
 	fmt.Println(p.GetFirst())
 	fmt.Println(p.GetLast())
 
