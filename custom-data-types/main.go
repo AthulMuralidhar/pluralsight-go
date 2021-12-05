@@ -24,10 +24,13 @@ func main() {
 	fmt.Println(p.GetLast())
 
 	err := p.SetTwitter("@dsaas")
+	fmt.Printf("%T\n", org.TwitterHandler("t"))
+
 	if err != nil {
 		fmt.Printf("error: %s \n",err.Error())
 	}
 
 	fmt.Println(p.GetTwitter())
+	fmt.Println(p.GetTwitter().RedirectURL())
 
 }
