@@ -3,6 +3,7 @@ package org
 import (
 	"errors"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -30,29 +31,30 @@ type Citizen interface {
 	Country() string
 }
 
-
 // types
 type Name struct {
 	first string
 	last  string
 }
 type Person struct {
-	Name //embeded struct
+	Name    //embeded struct
 	twitter TwitterHandler
 	Citizen // embedded interface
 }
 type Employee struct {
 	Name //embeded struct
 }
+
 // constructor
 func NewPerson(first, last string, identy Citizen) Person {
 	return Person{
-		Name: Name{first: first, last: last},
+		Name:    Name{first: first, last: last},
 		Citizen: identy,
 	}
 }
 
 type socialSecurity string
+
 func NewSocialSecurity(v string) Citizen {
 	return socialSecurity(v)
 }
@@ -63,26 +65,35 @@ func (ssn socialSecurity) Country() string {
 	return "US"
 }
 
-
 type euSecurity struct {
-	id string
+	id      string
 	country string
 }
-func NewEUSecurity(id, country string) Citizen {
-	return euSecurity{
-		id: id,
-		country: country,
+
+func NewEUSecurity(id interface{}, country string) Citizen {
+
+	switch v := id.(type) {
+	case string:
+		return euSecurity{
+			id:      v,
+			country: country,
+		}
+	case int:
+		return euSecurity{
+			id:      strconv.Itoa(v),
+			country: country,
+		}
+	default:
+		panic("invalid type")
 	}
 }
+
 func (eui euSecurity) GetID() string {
 	return eui.id
 }
 func (eui euSecurity) Country() string {
 	return eui.country
 }
-
-
-
 
 // getters
 
