@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 type Product struct {
@@ -13,13 +15,13 @@ type Product struct {
 	Sku            string `json: "sku"`
 	Upc            string `json: "upc"`
 	PricePerUnit   string `json: "pricePerUnit"`
-	QuantityOnHand int `json: "quantityOnHand"`
+	QuantityOnHand int    `json: "quantityOnHand"`
 	ProductName    string `json: productName`
 }
 
 var productList []Product
 
-func productHandler(w http.ResponseWriter, r *http.Request) {
+func productsHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		pJson, err := json.Marshal(productList)
@@ -45,10 +47,25 @@ func productHandler(w http.ResponseWriter, r *http.Request) {
 		newProduct.ProductId = getNextId()
 		productList = append(productList, newProduct)
 		w.WriteHeader(http.StatusCreated)
-		
-
 
 	}
+}
+func productHandler(w http.ResponseWriter, r *http.Request){
+	urlPath := strings.Split(r.URL.Path, "products/")
+	productId, err := strconv.Atoi(urlPath[len(urlPath) -1])
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	}
+	product, id := findByProductId(productId)
+
+	if product == nil {
+		w.WriteHeader(http.StatusNotFound)
+	}
+
+	
+
+
+
 }
 
 func init() {
@@ -90,7 +107,8 @@ func init() {
 
 func main() {
 
-	http.HandleFunc("/products", productHandler)
+	http.HandleFunc("/products", productsHandler)
+	http.HandleFunc("/products/", productHandler)
 
 	http.ListenAndServe(":5000", nil)
 
@@ -98,6 +116,15 @@ func main() {
 }
 
 
+// utils
 func getNextId() int {
 	return len(productList) + 1
+}
+func findByProductId(id int) (*Product, int){
+	for i, p := range productList {
+		if p.ProductId == id {
+			return &p, i
+		}
+	}
+	return nil, 0
 }
