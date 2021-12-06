@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -27,6 +28,26 @@ func productHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("Content-type", "application/json")
 		w.Write(pJson)
+
+	case http.MethodPost:
+		var newProduct Product
+		body, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		err = json.Unmarshal(body, &newProduct)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		if newProduct.ProductId != 0 {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		newProduct.ProductId = getNextId()
+		productList = append(productList, newProduct)
+		w.WriteHeader(http.StatusCreated)
+		
+
+
 	}
 }
 
@@ -74,4 +95,9 @@ func main() {
 	http.ListenAndServe(":5000", nil)
 
 	// JSONTest()
+}
+
+
+func getNextId() int {
+	return len(productList) + 1
 }
